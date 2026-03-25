@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Premium Cafe Palette */
+    --background: 35 50% 98%;
+    --foreground: 25 30% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 25 30% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 30% 15%;
+
+    /* Deep Espresso / Primary */
+    --primary: 26 40% 25%;
+    --primary-foreground: 40 50% 98%;
+
+    /* Terracotta / Secondary */
+    --secondary: 15 65% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Sand / Muted */
+    --muted: 35 25% 92%;
+    --muted-foreground: 25 15% 45%;
+
+    /* Olive / Accent */
+    --accent: 85 30% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Brand accents */
+    --terracotta: 15 65% 55%;
+    --terracotta-foreground: 0 0% 100%;
+    
+    --espresso: 26 40% 25%;
+    --espresso-foreground: 40 50% 98%;
+    
+    --olive: 85 30% 45%;
+    --olive-foreground: 0 0% 100%;
+    
+    --gold: 42 85% 55%;
+    --gold-foreground: 25 30% 15%;
+
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 26 40% 25%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 26 40% 20%;
+    --sidebar-foreground: 35 30% 95%;
+    --sidebar-primary: 42 85% 55%;
+    --sidebar-primary-foreground: 26 40% 20%;
+    --sidebar-accent: 26 35% 28%;
+    --sidebar-accent-foreground: 42 85% 55%;
+    --sidebar-border: 26 30% 30%;
+    --sidebar-ring: 42 85% 55%;
+  }
+
+  .dark {
+    --background: 25 30% 10%;
+    --foreground: 35 30% 95%;
+
+    --card: 26 25% 14%;
+    --card-foreground: 35 30% 95%;
+
+    --popover: 26 25% 12%;
+    --popover-foreground: 35 30% 95%;
+
+    --primary: 42 85% 55%;
+    --primary-foreground: 26 40% 20%;
+
+    --secondary: 15 65% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 26 20% 20%;
+    --muted-foreground: 35 15% 65%;
+
+    --accent: 85 30% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 26 20% 25%;
+    --input: 26 20% 25%;
+    --ring: 42 85% 55%;
+
+    --sidebar-background: 25 30% 8%;
+    --sidebar-foreground: 35 30% 90%;
+    --sidebar-primary: 42 85% 55%;
+    --sidebar-primary-foreground: 25 30% 8%;
+    --sidebar-accent: 26 25% 18%;
+    --sidebar-accent-foreground: 42 85% 55%;
+    --sidebar-border: 26 20% 20%;
+    --sidebar-ring: 42 85% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary;
+    background-image: radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.03) 0%, transparent 25%),
+                      radial-gradient(circle at 0% 100%, rgba(226, 114, 91, 0.03) 0%, transparent 25%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-white/40 dark:border-white/10 rounded-2xl shadow-soft hover:shadow-soft-xl transition-all duration-300;
+  }
+
+  .stat-card {
+    @apply bg-card border border-border/50 rounded-2xl p-6 shadow-soft hover:shadow-soft-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden;
+  }
+  
+  .stat-card::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-white/40 to-transparent dark:from-white/5 opacity-0 transition-opacity duration-300 pointer-events-none;
+  }
+  
+  .stat-card:hover::after {
+    @apply opacity-100;
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-sidebar-foreground transition-all duration-300 relative overflow-hidden;
+  }
+  
+  .sidebar-item::before {
+    content: '';
+    @apply absolute inset-0 bg-sidebar-accent opacity-0 transition-opacity duration-300 pointer-events-none;
+  }
+  
+  .sidebar-item:hover::before {
+    @apply opacity-50;
+  }
+
+  .sidebar-item-active {
+    @apply text-sidebar-primary font-medium bg-sidebar-accent;
+  }
+
+  .sidebar-item-active::before {
+    @apply opacity-100;
+  }
+
+  .alert-bar {
+    @apply bg-terracotta/5 border border-terracotta/20 rounded-2xl p-5 shadow-soft relative overflow-hidden;
+  }
+  
+  .alert-bar::before {
+    content: '';
+    @apply absolute top-0 left-0 w-1 h-full bg-terracotta;
+  }
+  
+  .icon-container {
+    @apply w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br shadow-inner border border-white/20 dark:border-white/10;
+  }
+}
+
+@layer utilities {
+  .shadow-soft {
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.02);
+  }
+  .shadow-soft-xl {
+    box-shadow: 0 20px 50px -15px rgba(0,0,0,0.1), 0 2px 5px rgba(0,0,0,0.03);
+  }
+  .shadow-glow-primary {
+    box-shadow: 0 0 25px -5px hsl(var(--primary) / 0.4);
+  }
+  .shadow-glow-terracotta {
+    box-shadow: 0 0 25px -5px hsl(var(--terracotta) / 0.4);
+  }
+  .text-gradient {
+    @apply bg-gradient-to-br from-primary to-terracotta bg-clip-text text-transparent;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  .animate-pulse-soft {
+    animation: pulseSoft 3s ease-in-out infinite;
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
